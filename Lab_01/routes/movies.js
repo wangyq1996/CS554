@@ -123,7 +123,7 @@ router.put('/:id', async (req, res) => {
         return;
     }
 
-    if (!movieInfo.rating || typeof movieInfo.rating !== 'number') {
+    if (movieInfo.rating === undefined || typeof movieInfo.rating !== 'number') {
         res.status(400).json({ error: 'Invalid Movie Rating' });
         return;
     }
