@@ -1,0 +1,16 @@
+{
+  "name": "lab_01",
+  "version": "1.0.0",
+  "description": "CS554 lab_01",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yuqi Wang 10446070",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.1"
+  }
+}
