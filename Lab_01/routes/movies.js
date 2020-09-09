@@ -7,7 +7,11 @@ const commentData = data.comments;
 router.get('/', async (req, res) => {
     const skip = Number.parseInt(req.query.skip);
     const take = Number.parseInt(req.query.take);
-    if (Number.isNaN(skip) || Number.isNaN(take)) {
+    if (
+        (skip && Number.isNaN(skip)) ||
+        skip <= 0 ||
+        (take && Number.isNaN(take))
+    ) {
         res.status(400).json({ error: 'Invalid Query Input' });
         return;
     }
@@ -102,7 +106,14 @@ router.put('/:id', async (req, res) => {
         }
     }
 
-    if (!movieInfo.info || typeof movieInfo.info !== 'object') {
+    if (
+        !movieInfo.info ||
+        typeof movieInfo.info !== 'object' ||
+        typeof movieInfo.info.director !== 'string' ||
+        typeof movieInfo.info.yearReleased !== 'number' ||
+        movieInfo.info.yearReleased % 1 !== 0 ||
+        movieInfo.info.yearReleased < 0
+    ) {
         res.status(400).json({ error: 'Invalid Movie Info' });
         return;
     }
@@ -165,7 +176,14 @@ router.patch('/:id', async (req, res) => {
         }
     }
 
-    if (movieInfo.info && typeof movieInfo.info !== 'object') {
+    if (
+        movieInfo.info &&
+        (typeof movieInfo.info !== 'object' ||
+            typeof movieInfo.info.director !== 'string' ||
+            typeof movieInfo.info.yearReleased !== 'number' ||
+            movieInfo.info.yearReleased % 1 !== 0 ||
+            movieInfo.info.yearReleased < 0)
+    ) {
         res.status(400).json({ error: 'Invalid Movie Info' });
         return;
     }

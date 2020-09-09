@@ -13,6 +13,10 @@ app.use(function (req, res, next) {
 });
 
 app.use(
+	function (req, res, next) {
+        console.log('Request Body:', req.body);
+        next();
+    },
     function (req, res, next) {
         console.log('Request URL:', req.originalUrl);
         next();

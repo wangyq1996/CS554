@@ -5,11 +5,16 @@ const ObjID = require('mongodb').ObjectID;
 const getAllMovies = async (skip = 0, take = 20) => {
     if (take <= 0) return [];
     const movieCollection = await movies();
-    return await movieCollection
+    try {
+        const output = await movieCollection
         .find({})
         .skip(skip)
         .limit(Math.min(take, 100))
         .toArray();
+        return output;
+    } catch(e) {
+        throw 'Error';
+    }
 };
 
 const getMovieById = async (id) => {
@@ -29,10 +34,17 @@ const addMovie = async (title, cast, info, plot, rating) => {
     }
 
     if (typeof info !== 'object') throw 'Invalid Info';
+    if (typeof info.director !== 'string') throw 'Invalid director info';
+    if (
+        typeof info.yearReleased !== 'number' ||
+        info.yearReleased % 1 !== 0 ||
+        info.yearReleased < 0
+    )
+        throw 'Invalid released year info';
 
     if (typeof plot !== 'string') throw 'Invalid Plot';
 
-    if (typeof rating !== 'number') throw 'Invalid Rating';
+    if (typeof rating !== 'number' || rating < 0) throw 'Invalid Rating';
 
     const movieCollection = await movies();
 
