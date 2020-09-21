@@ -1,0 +1,90 @@
+@import 'variables';
+@import './src/styles/bootstrap/scss/bootstrap';
+
+.container {
+    background-color: rebeccapurple;
+}
+
+.titleTop {
+    font-family: 'Lucida Console', Courier, monospace;
+    color: white;
+    justify-content: center;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.card {
+    border-radius: 2rem;
+    padding: 15 5 5 5px;
+    margin: 15 0px;
+    align-items: center;
+    .card-img-top {
+        width: 176px;
+        height: 176px;
+        border-radius: 2rem;
+    }
+    .card-body {
+        padding: 0.5rem;
+        align-items: center;
+    }
+}
+
+.btn-primary {
+    color: white;
+    background-color: rebeccapurple;
+    border-color: rebeccapurple;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    font-weight: bold;
+    color: rebeccapurple;
+    background-color: white;
+    border-color: rebeccapurple; /*set the color you want here*/
+}
+
+.aLinkDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.movie-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.navbar {
+    background-color: #cd00de;
+    border-radius: 2rem;
+    //z-index: 9999;
+    .navbar-nav {
+        width: 100%;
+        align-items: center;
+    }
+    .nav-item {
+        font-weight: bold;
+    }
+    .nav-link {
+        color: white;
+    }
+}
+
+.modal {
+    top: 100;
+}
+
+.in {
+    opacity: 1;
+}
+
+body {
+    font-family: 'Lucida Console', Courier, monospace;
+    color: black;
+    text-align: left;
+}
