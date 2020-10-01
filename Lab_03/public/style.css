@@ -2,13 +2,26 @@
     box-sizing: border-box;
 }
 
-.container {
-    height: 100vh;
-    width: 80%;
-    margin: auto;
+header {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5vh;
 }
 
-.container footer {
-    position: absolute;
+.container {
+    height: 90vh;
+    position: fixed;
+    top: 5vh;
+    left: 0;
+}
+
+footer {
+    display: block;
+    position: fixed;
     bottom: 0;
+    left: 0;
+    height: 5vh;
+    text-align: center;
 }
