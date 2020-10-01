@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    height: 100vh;
+    width: 80%;
+    margin: auto;
+}
+
+.container footer {
+    position: absolute;
+    bottom: 0;
+}
