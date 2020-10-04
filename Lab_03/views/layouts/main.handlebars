@@ -10,7 +10,14 @@
         <h1>{{title}}</h1>
     </header>
     <div class="container">
-        <div class="input">input</div>
+        <div class="input">
+          <form action="/search">
+            <label for="search">Keyword Search:</label>
+            <input placeholder="Search Movie" id="query" name="query">
+            <button type="submit" formmethod="POST">Search!</button>
+          </form>
+          <a href="/popularsearches">See Top 10 Searches!</a>
+        </div>
         {{{body}}}
     </div>
     <footer>Author: Yuqi Wang</footer>
