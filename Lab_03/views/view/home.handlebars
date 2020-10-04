@@ -1,0 +1,11 @@
+<section>
+    <ul class="full-list" id="listall">
+        {{#each allData}}
+            <li class="li-item">
+                <a href="/{{this.id}}">
+                    {{this.name}}
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+</section>

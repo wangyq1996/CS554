@@ -5,11 +5,6 @@ const static = express.static(__dirname + '/public');
 const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 
-//Start client
-const redis = require('redis');
-const client = redis.createClient();
-client.on('connected', () => console.log('Connected to Redis...'));
-
 //middleware
 app.use('/public', static);
 app.use(express.json());

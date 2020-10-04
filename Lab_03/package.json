@@ -10,9 +10,10 @@
   "author": "Yuqi Wang 10446070",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.20.0",
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
-    "node-fetch": "^2.6.1",
     "redis": "^3.0.2"
   }
 }
