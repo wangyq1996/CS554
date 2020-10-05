@@ -1,19 +1,19 @@
 {
-  "name": "lab_03",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Yuqi Wang 10446070",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.20.0",
-    "bluebird": "^3.7.2",
-    "express": "^4.17.1",
-    "express-handlebars": "^5.1.0",
-    "redis": "^3.0.2"
-  }
+    "name": "lab_03",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "keywords": [],
+    "author": "Yuqi Wang 10446070",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.20.0",
+        "bluebird": "^3.7.2",
+        "express": "^4.17.1",
+        "express-handlebars": "^5.1.0",
+        "redis": "^3.0.2"
+    }
 }

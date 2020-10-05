@@ -3,21 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="../../public/style.css">
+    <link rel="stylesheet" href="../../public/css/style.css">
   </head>
   <body>
     <header>
         <h1>{{title}}</h1>
-    </header>
-    <div class="container">
         <div class="input">
           <form action="/search">
-            <label for="search">Keyword Search:</label>
+            <label for="query">Keyword Search:</label>
             <input placeholder="Search Movie" id="query" name="query">
             <button type="submit" formmethod="POST">Search!</button>
           </form>
           <a href="/popularsearches">See Top 10 Searches!</a>
         </div>
+    </header>
+    <div class="container">
         {{{body}}}
     </div>
     <footer>Author: Yuqi Wang</footer>

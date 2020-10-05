@@ -34,8 +34,33 @@ footer {
     text-align: center;
 }
 
+ul {
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+section,
+.input {
+    width: 80%;
+    margin: auto;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover {
+    color: darkblue;
+    font-size: 120%;
+}
+
 .container {
     margin-top: 10px;
     overflow: scroll;
-    max-height: 85vh;
+    max-height: 80vh;
 }
