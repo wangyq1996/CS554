@@ -43,18 +43,24 @@ router.get('/popularsearches', async (req, res) => {
             top10: top10,
         });
     } catch (e) {
-        res.render('view/error', { layout: 'main', title: 'Error!' });
+        res.status(400).render('view/error', {
+            layout: 'main',
+            title: 'Error!',
+        });
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/show/:id', async (req, res) => {
     const id = req.params.id;
     const detailPage = await client.getAsync(id);
     if (!detailPage) {
         try {
             const detail = await data.getId(id);
             if (!detail) {
-                res.render('view/error', { layout: 'main', title: 'Error!' });
+                res.status(400).render('view/error', {
+                    layout: 'main',
+                    title: 'Error!',
+                });
             } else {
                 res.render(
                     'view/detail',
@@ -70,7 +76,10 @@ router.get('/:id', async (req, res) => {
                 );
             }
         } catch (e) {
-            res.render('view/error', { layout: 'main', title: 'Error!' });
+            res.status(400).render('view/error', {
+                layout: 'main',
+                title: 'Error!',
+            });
         }
     } else res.send(detailPage);
 });
@@ -78,7 +87,10 @@ router.get('/:id', async (req, res) => {
 router.post('/search', async (req, res) => {
     const query = req.body.query;
     if (!queryCheck(query)) {
-        res.render('view/error', { layout: 'main', title: 'Error!' });
+        res.status(400).render('view/error', {
+            layout: 'main',
+            title: 'Error!',
+        });
     } else {
         const searchPage = await client.getAsync(query);
         if (!searchPage) {
@@ -102,7 +114,10 @@ router.post('/search', async (req, res) => {
                     }
                 );
             } catch (e) {
-                res.render('view/error', { layout: 'main', title: 'Error!' });
+                res.status(400).render('view/error', {
+                    layout: 'main',
+                    title: 'Error!',
+                });
             }
         } else {
             const val = await client.zscoreAsync('popSearch', query);
