@@ -43,7 +43,7 @@ router.get('/popularsearches', async (req, res) => {
             top10: top10,
         });
     } catch (e) {
-        res.status(400).render('view/error', {
+        res.render('view/error', {
             layout: 'main',
             title: 'Error!',
         });
@@ -76,7 +76,7 @@ router.get('/show/:id', async (req, res) => {
                 );
             }
         } catch (e) {
-            res.status(400).render('view/error', {
+            res.status(404).render('view/error', {
                 layout: 'main',
                 title: 'Error!',
             });
@@ -114,7 +114,7 @@ router.post('/search', async (req, res) => {
                     }
                 );
             } catch (e) {
-                res.status(400).render('view/error', {
+                res.render('view/error', {
                     layout: 'main',
                     title: 'Error!',
                 });
