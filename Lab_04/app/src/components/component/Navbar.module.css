@@ -1,0 +1,11 @@
+.navbar {
+    height: 7vh;
+    font-size: 120%;
+    background-color: dimgray;
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    margin-left: 20vw;
+}

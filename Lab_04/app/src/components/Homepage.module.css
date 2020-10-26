@@ -1,0 +1,15 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.home {
+    max-height: 65vh;
+    overflow: scroll;
+}
+
+.linkDiv {
+    display: flex;
+    padding: 0 5vw;
+    justify-content: space-between;
+}

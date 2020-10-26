@@ -1,0 +1,10 @@
+.footer {
+    display: block;
+    height: 10vh;
+    font-size: 200%;
+    font-weight: lighter;
+    margin-top: 3vh;
+    padding-top: 2vh;
+    background-color: dimgray;
+    color: floralwhite;
+}
