@@ -57,11 +57,21 @@ const ShowList = (props) => {
             const right = Math.min(left + 4, lastPage);
             if (left !== 0) {
                 output.push(
-                    <Pagination.Item href="./0" key={0}>
+                    <Pagination.Item
+                        href="./0"
+                        key={0}
+                        aria-label={`Go to first page`}
+                    >
                         {0}
                     </Pagination.Item>
                 );
-                if (left > 1) output.push(<Pagination.Ellipsis key={1} />);
+                if (left > 1)
+                    output.push(
+                        <Pagination.Ellipsis
+                            key={1}
+                            aria-label={`Ellipsis left`}
+                        />
+                    );
             }
             for (let i = left; i <= right; i++)
                 output.push(
@@ -69,15 +79,25 @@ const ShowList = (props) => {
                         key={i}
                         active={i === pNum}
                         href={`./${i}`}
+                        aria-label={`Go to Page${i}`}
                     >
                         {i}
                     </Pagination.Item>
                 );
             if (right !== lastPage) {
                 if (right < lastPage - 1)
-                    output.push(<Pagination.Ellipsis key={lastPage - 1} />);
+                    output.push(
+                        <Pagination.Ellipsis
+                            key={lastPage - 1}
+                            aria-label={`Ellipsis right`}
+                        />
+                    );
                 output.push(
-                    <Pagination.Item href={`./${lastPage}`} key={lastPage}>
+                    <Pagination.Item
+                        href={`./${lastPage}`}
+                        key={lastPage}
+                        aria-label={`Go to Last Page`}
+                    >
                         {lastPage}
                     </Pagination.Item>
                 );
