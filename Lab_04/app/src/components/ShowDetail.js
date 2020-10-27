@@ -42,6 +42,7 @@ const ShowDetail = (props) => {
                         height: '300px',
                         margin: '10px auto',
                     }}
+                    alt="Movie Image"
                 />
                 <Card.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>
                     {port === 'characters' ? detail.name : detail.title}
