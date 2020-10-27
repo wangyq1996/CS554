@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import classes from './ShowDetail.module.css';
+import { Redirect } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import getData from './getData';
 
 const ShowDetail = (props) => {
     const [detail, setDetail] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
     const port = props.match.params.port;
     const id = props.match.params.id;
     let data;
@@ -19,11 +21,15 @@ const ShowDetail = (props) => {
                 setDetail(data[0]);
                 setLoading(false);
             } catch (e) {
-                console.log(e);
+                setError(true);
             }
         };
         fetchData();
     }, [id]);
+
+    if (error) {
+        return <Redirect to="/error" status={404} />;
+    }
 
     const buildCard = () => {
         return (
@@ -37,12 +43,10 @@ const ShowDetail = (props) => {
                         margin: '10px auto',
                     }}
                 />
-                <Card.Body>
-                    <Card.Title
-                        style={{ textAlign: 'center', fontWeight: 'bold' }}
-                    >
-                        {port === 'characters' ? detail.name : detail.title}
-                    </Card.Title>
+                <Card.Title style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                    {port === 'characters' ? detail.name : detail.title}
+                </Card.Title>
+                <Card.Body style={{ height: '60vh', overflow: 'scroll' }}>
                     <Card.Text>Type: {detail.type}</Card.Text>
                     <Card.Text>Rating: {detail.rating}</Card.Text>
                     <Card.Text>Start Year: {detail.startYear}</Card.Text>
@@ -50,7 +54,13 @@ const ShowDetail = (props) => {
                     <Card.Text>Description: {detail.description}</Card.Text>
                 </Card.Body>
                 <Card.Body>
-                    <Card.Link href="#">Go Back</Card.Link>
+                    <Card.Link
+                        onClick={() => {
+                            window.history.back();
+                        }}
+                    >
+                        Go Back
+                    </Card.Link>
                     <Card.Link
                         href={detail.urls[0].url}
                         style={{ float: 'right' }}
@@ -62,7 +72,13 @@ const ShowDetail = (props) => {
         );
     };
 
-    console.log(detail);
+    if (loading) {
+        return (
+            <div className={classes.loading}>
+                <h2>Loading...</h2>
+            </div>
+        );
+    }
 
     if (detail) data = buildCard();
 

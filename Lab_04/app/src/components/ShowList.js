@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classes from './ShowList.module.css';
 import { ListGroup, Pagination } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import Header from './component/Header';
 import getData from './getData';
 
@@ -8,26 +9,37 @@ const ShowList = (props) => {
     const [showsData, setShowsData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [lastPage, setLastPage] = useState(0);
+    const [error, setError] = useState(false);
     const pageNum = props.match.params.pagenum;
     const port = props.match.params.port;
     let item;
 
     useEffect(() => {
         console.log('loading data useeffect');
+        const pNum = parseInt(pageNum);
+        if (isNaN(pNum)) setError(true);
         const fetchData = async () => {
-            try {
-                const data = await getData(port, 'page', pageNum);
-                let last = parseInt(data.total / 20);
-                if (last * 20 === data.total) last--;
-                setLastPage(last);
-                setShowsData(data);
-                setLoading(false);
-            } catch (e) {
-                console.log(e);
+            if (!error) {
+                try {
+                    const data = await getData(port, 'page', pageNum);
+                    if (data === 'No Data Found' || data === 'Error')
+                        throw 'error';
+                    let last = parseInt(data.total / 20);
+                    if (last * 20 === data.total) last--;
+                    setLastPage(last);
+                    setShowsData(data);
+                    setLoading(false);
+                } catch (e) {
+                    setError(true);
+                }
             }
         };
         fetchData();
     }, []);
+
+    if (error) {
+        return <Redirect to="/error" status={404} />;
+    }
 
     const buildList = (data) => {
         return (

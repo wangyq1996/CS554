@@ -26,10 +26,10 @@ const getData = async (port, type, props) => {
 
     try {
         const data = await (await axios (url)).data.data;
-        if(data.total === 0|| data.count === 0) return 'No data Found';
+        if(data.total === 0|| data.count === 0) throw 'No Data Found';
         return data;
     } catch (e) {
-        return 'Error';
+        throw 'Error';
     }
 };
 
