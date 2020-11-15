@@ -24,17 +24,20 @@ const unsplashImages = async (pageNum) => {
 
     const output = [];
 
-    res.forEach((e) => {
+    for(let e of res) {
+        const check = await client.getAsync(e.id);
+        let binned = false;
+        if(check) binned = true;
         const temp = {
             id: e.id,
             url: e.urls.full,
             posterName: e.user.name,
             description: e.alt_description,
             userPosted: false,
-            binned: false,
+            binned: binned,
         };
         output.push(temp);
-    });
+    }
 
     return output;
 };
@@ -49,12 +52,6 @@ const binnedImages = async () => {
         output.push(JSON.parse(data));
     }
 
-    // userPostedList.forEach(async (e) => {
-    //     const data = await client.getAsync(e);
-    //     output.push(data);
-    //     //console.log(output);
-    // });
-
     return output;
 };
 
@@ -67,12 +64,6 @@ const userPostedImages = async () => {
         const data = await client.getAsync(item);
         output.push(JSON.parse(data));
     }
-
-    // userPostedList.forEach(async (e) => {
-    //     const data = await client.getAsync(e);
-    //     output.push(data);
-    //     //console.log(output);
-    // });
 
     return output;
 };
@@ -101,7 +92,7 @@ const updateImage = async (
     url,
     posterName,
     description,
-    userPosted,
+    userPosted=false,
     binned
 ) => {
     const newData = {
@@ -116,9 +107,8 @@ const updateImage = async (
     let oldData;
 
     if (userPosted || binned) {
-        try {
-            oldData = JSON.parse(await client.getAsync(id));
-        } catch (e) {
+        oldData = JSON.parse(await client.getAsync(id));
+        if (!oldData) {
             await client.setAsync(id, setData);
 
             if (userPosted) await client.rpushAsync('userpost', id);
@@ -126,7 +116,6 @@ const updateImage = async (
 
             return newData;
         }
-
         await client.setAsync(id, setData);
 
         if (oldData.userPosted && !userPosted)
@@ -140,16 +129,14 @@ const updateImage = async (
         return newData;
     }
 
-    try {
-        oldData = JSON.parse(await client.getAsync(id));
+    oldData = JSON.parse(await client.getAsync(id));
 
-        await client.delAsync(id);
+    if (!oldData) throw 'No such id in Redis';
 
-        if (oldData.userPosted) await client.lremAsync('userpost', 0, id);
-        if (oldData.binned) await client.lremAsync('binned', 0, id);
-    } catch (e) {
-        throw 'No such id in Redis';
-    }
+    await client.delAsync(id);
+
+    if (oldData.userPosted) await client.lremAsync('userpost', 0, id);
+    if (oldData.binned) await client.lremAsync('binned', 0, id);
 
     return newData;
 };
@@ -157,16 +144,16 @@ const updateImage = async (
 const deleteImage = async (id) => {
     let data;
 
-    try {
-        data = JSON.parse(await client.getAsync(id));
-        if (!data.userPosted) throw 'No Access to non-userPosted Images';
-    } catch (e) {
-        throw 'No such id';
-    }
+    data = JSON.parse(await client.getAsync(id));
+
+    if (!data) throw 'No such id';
+    if (!data.userPosted) throw 'No Access to non-userPosted Images';
 
     await client.delAsync(id);
 
     await client.lremAsync('userpost', 0, id);
+
+    await client.lremAsync('binned', 0, id);
 
     return data;
 };
@@ -176,7 +163,17 @@ const deleteImage = async (id) => {
 //     // uploadImage('2','test2','Yuqi Wang');
 //     // uploadImage('3','test3','Yuqi Wang');
 //     // uploadImage('4','test4','Yuqi Wang');
-//     const res = await updateImage('05ff28a2-7022-425f-902d-f93bb8ec3dcc','update2','Yuqi Wang','Third Update',false,false);
+//     // const res = await updateImage(
+//     //     'nV8K0uguyiw',
+//     //     'https://images.unsplash.com/photo-1593643946890-b5b85ade6451?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE4MjI4NX0',
+//     //     'XPS',
+//     //     'man in green zip up jacket beside woman in black shirt',
+//     //     false,
+//     //     true
+//     // );
+//     const res = await binnedImages();
+//     //const res = await client.getAsync('nV8K0uguyiw');
+//     //const res = await client.delAsync('nV8K0uguyiw');
 //     console.log(res);
 // }
 

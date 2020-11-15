@@ -1,5 +1,4 @@
 const { ApolloServer, gql } = require('apollo-server');
-const lodash = require('lodash');
 const data = require('./Data/data');
 
 const typeDefs = gql`
