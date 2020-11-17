@@ -7,7 +7,21 @@ import classes from './Main.module.css';
 const Main = (props) => {
     const path = window.location.pathname;
     const [pageNum, setPageNum] = useState(1);
-    const [deletePost] = useMutation(queries.DEL_IMAGE);
+    const [deletePost] = useMutation(queries.DEL_IMAGE, {
+        update(cache) {
+            const { userPostedImages } = cache.readQuery({
+                query: queries.GET_USERPOSTEDIMAGES,
+            });
+            cache.writeQuery({
+                query: queries.GET_USERPOSTEDIMAGES,
+                data: {
+                    userPostedImages: userPostedImages.filter(
+                        (u) => u.id === data.userPostedImages.id
+                    ),
+                },
+            });
+        },
+    });
     const [updatePost] = useMutation(queries.UPDATE_IMAGE);
 
     let query;
@@ -33,7 +47,7 @@ const Main = (props) => {
     if (loading) return <p>Loading...</p>;
     if (error) return <Redirect to="/error" status={404} />;
 
-    const pageNumHandler = () => setPageNum(pageNum+1);
+    const pageNumHandler = () => setPageNum(pageNum + 1);
 
     const buildCard = (item) => {
         return (
