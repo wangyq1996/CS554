@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
         );
         res.json(movieList);
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(400);
     }
 });
 
@@ -35,12 +35,12 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+
     const movieInfo = req.body;
 
     if (!movieInfo) {
         res.status(400).json({ error: 'No Movie Data Provided' });
-        return;
+        retrouter.post('/', async (req, res) => {urn;
     }
 
     if (!movieInfo.title) {
@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {
         );
         res.json(newMovie);
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(400);
     }
 });
 
@@ -241,7 +241,7 @@ router.post('/:id/comments', async (req, res) => {
         );
         res.json(newComment);
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(400);
     }
 });
 
@@ -254,7 +254,7 @@ router.delete('/:movieId/:commentId', async (req, res) => {
         );
         res.sendStatus(200);
     } catch (e) {
-        res.sendStatus(500);
+        res.sendStatus(404);
     }
 });
 
